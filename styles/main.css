@@ -1,0 +1,83 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Press Start 2P', cursive;
+  height: 80vh; 
+  margin: 0;
+  overflow: hidden;
+  background-color: #9BBA5A;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+body section {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  margin-bottom: 40px;
+  animation: 3s infinite alternate slidein;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 500px;
+  
+}
+
+header div {
+  margin-bottom: 0;
+}
+
+.start {
+  font-family: 'Press Start 2P', cursive;
+  padding: 10px 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 2px solid black;
+
+}
+
+.start:hover {
+  cursor: pointer;
+}
+
+.grid-wrapper {
+  /* height: 100vh; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid {
+  align-items: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: center;
+  height: 500px;
+  width: 500px;
+  border: 5px solid black;
+}
+
+.grid div {
+  flex-grow: 1;
+  height: 5%;
+  width: 5%;
+  margin: 0;
+  background-color: #9BBA5A;
+}
+
+.grid .food {
+  background-color: white;
+}
+
+.grid .snake {
+  background-color: black;
+}
+
+
