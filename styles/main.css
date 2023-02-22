@@ -18,7 +18,7 @@ body section {
   justify-content: center;
   font-size: 30px;
   margin-bottom: 40px;
-  animation: 3s infinite alternate slidein;
+  
 }
 header {
   display: flex;
@@ -80,4 +80,8 @@ header div {
   background-color: black;
 }
 
-
+.killGame {
+  position: absolute;
+  font-size: 40px;
+  text-align: center;
+}

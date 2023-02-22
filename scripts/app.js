@@ -4,6 +4,7 @@ function init() {
   const grid = document.querySelector('.grid')
   const scoreDisplay = document.querySelector('.score')
   const startBtn = document.querySelector('.start')
+  const killGame = document.querySelector('.killGame')
 
   const width = 20
   const cellCount = width * width
@@ -12,11 +13,13 @@ function init() {
   // ! Variables
   const cells = []
   let currentSnake = [6, 5, 4]
-  let currentScore = 10
-  let snakeSpeed 
-  let randomCellFood = 0  //anything between 0 and 399
+  let currentScore = 0
+  const snakeSpeed = 0.9
+  let randomCellFood = 0  
   let snakeDirection = 'right'
   let timer
+  let interval = 1000
+  //let endGame = false
   
 
   // ! Generate Grid
@@ -39,7 +42,6 @@ function init() {
   function startGame(){
     // Reset variables back to their default values
     reset()
-    //doing a forEach loop, I can add the color to the snake and the class 
     currentSnake = [6, 5, 4]
     
     addSnake()
@@ -48,9 +50,10 @@ function init() {
     addScore
   }
 
-  function addSnake(){
+  function addSnake(){ 
+    //doing a forEach loop, I can add the color to the snake and the class 
     currentSnake.forEach(index => {
-      //cells[index].style.background = 'black'
+    //adding the class of snake
       cells[index].classList.add('snake')
     })
   }
@@ -82,18 +85,18 @@ function init() {
     const up = 38
     const down = 40
     
-    if (e.keyCode === right) {
+    if (e.keyCode === right && snakeDirection !== 'left') {
       snakeDirection = 'right'
       console.log('right')
       
-    } else if (e.keyCode === left){
-      snakeDirection = 'left'
+    } else if (e.keyCode === left && snakeDirection !== 'right'){
+      snakeDirection = 'left' 
       console.log('left')
       
-    } else if (e.keyCode === up){
+    } else if (e.keyCode === up && snakeDirection !== 'down'){
       snakeDirection = 'up'
       console.log('up')
-    } else if (e.keyCode === down){
+    } else if (e.keyCode === down && snakeDirection !== 'up'){
       snakeDirection = 'down'
       console.log('down')
       
@@ -104,9 +107,8 @@ function init() {
   function moveSnake(){
     
     const head = currentSnake[0]
-    //console.log('test', head % width === (width - 1))
     if (snakeDirection === 'right' && head % width !== width - 1){
-      //endGame
+      
       //we need to manipulate the DOM decrementing the tail and removing that class
       cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
       //Through the DOM we need to add one index to the head
@@ -115,11 +117,9 @@ function init() {
       currentSnake.pop()
       //adding to the start of the array, which is the head
       currentSnake.unshift(head + 1)
-
-      //console.log(currentSnake)
-      //console.log('test', currentSnake[2] % width === width - 1 )
+      
     } else if (snakeDirection === 'left' && head % width !== 0){
-      //endGame
+      
       cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
       cells[head - 1].classList.add('snake')
       //cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
@@ -128,55 +128,64 @@ function init() {
       currentSnake.unshift(head - 1)
       
     } else if (snakeDirection === 'up' && head >= width){
-      //endGame
+      
       cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
       cells[head - width].classList.add('snake')
       currentSnake.pop()
       currentSnake.unshift(head - width)
-
+      
     } else if (snakeDirection === 'down' && head + width < cellCount){
-      //endGame
+      
       cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
       cells[head + width].classList.add('snake')
       currentSnake.pop()
       currentSnake.unshift(head + width)
+      
     } else {
-      //if the snake hits itself is GameOver
+      if (cells[head].classList.contains('snake')) {
+        //console.log('Game Over')
+        reset()
+        killGame.innerText = 'GAME OVER!' 
+        
+      } 
+      startGame()
     }
     //if the snake eats the food
     if (head === randomCellFood){
-      console.log('eaten') 
       addScore()
       //remove the class of food
       removeFood()
-      console.log('remove food')
       //grow snake by adding the class of snake 
-      cells[currentSnake[2]].classList.add('snake')
       // grow the tail and the array need to get bigger too
-      currentSnake.push(2)
+      growTail()
       //addFood
       addFood()
       //increase the score variable and add 10 to the scoreDisplay
       addScore()
-      //grow the speed
+      //grow speed
+      speed()
     }
   }
 
   function addScore(){
-    currentScore += 10
-    scoreDisplay.innerHTML = '10' //amend this
+    currentScore += 5
+    scoreDisplay.innerHTML = currentScore
   }
 
-  // function growTail(){
-  //   //grow tail when the food is eaten
-  //   if (head === randomCellFood){
-  //     currentSnake.push()
-  //   }
-    
-  // }
+  function growTail(){
+    //grow tail when the food is eaten
+    //grow snake by adding the class of snake 
+    // grow the tail and the array need to get bigger too
+    cells[currentSnake[2]].classList.add('snake')
+    currentSnake.push(2)
+  }
   
   function speed(){
     //Select the speed of the snake using setInterval().
+    timer = setInterval(moveSnake, interval)
+    console.log('interval')
+    interval = interval * snakeSpeed
+    
   }
 
   function reset(){
@@ -186,7 +195,7 @@ function init() {
     // Remove the snake
     removeSnake()
     //reset array current snake
-    currentSnake = []
+    //currentSnake = [6, 5, 4]
     //remove food
     removeFood()
     //reset score variable
@@ -195,9 +204,9 @@ function init() {
     scoreDisplay.innerText = 0
   }
 
-  function endGame(){
-
-  }
+  // function gameOver(){
+  //   endGame = true
+  // }
 
   // ! Events
   startBtn.addEventListener('click', startGame)
