@@ -5,6 +5,7 @@ function init() {
   const scoreDisplay = document.querySelector('.score')
   const startBtn = document.querySelector('.start')
   const killGame = document.querySelector('.killGame')
+  const audio = document.querySelector('#audio')
 
   const width = 20
   const cellCount = width * width
@@ -14,11 +15,11 @@ function init() {
   const cells = []
   let currentSnake = [6, 5, 4]
   let currentScore = 0
-  let snakeSpeed 
   let randomCellFood = 0  
   let snakeDirection = 1
   let timer
-  const intervalTime = 1000
+  let intervalTime = 500
+  
   
   // ! Generate Grid
   function createGrid(){
@@ -35,9 +36,10 @@ function init() {
     }
   }
 
-
   // ! Executions
   function startGame(){
+    playAudio()
+    clearInterval(timer)
     // Reset variables back to their default values
     reset()
     
@@ -68,7 +70,7 @@ function init() {
     randomCellFood = Math.floor(Math.random() * cells.length)
     //cells is an array. Doing the below, I can add the class 'food'
     cells[randomCellFood].classList.add('food')
-    console.log('food')
+    //console.log(currentSnake)
   }
 
   function removeFood(){
@@ -86,19 +88,19 @@ function init() {
     
     if (e.keyCode === right && snakeDirection !== -1) {
       snakeDirection = +1
-      console.log('right')
+      //console.log('right')
       
     } else if (e.keyCode === left && snakeDirection !== +1){
       snakeDirection = -1
-      console.log('left')
+      //console.log('left')
       
     } else if (e.keyCode === up && snakeDirection !== +width){
       snakeDirection = -width
-      console.log('up')
+      //console.log('up')
 
     } else if (e.keyCode === down && snakeDirection !== -width){
       snakeDirection = +width
-      console.log('down')      
+      //console.log('down')      
     } 
   }
 
@@ -108,47 +110,49 @@ function init() {
     
     if (snakeDirection === 1 && head % width === width - 1){
       gameOver()
-      console.log('die going right')   
+      clearInterval(timer)
+      //console.log('die going right')   
     } else if (snakeDirection === -1 && head % width === 0){
       gameOver()
-      console.log('die going left')
+      clearInterval(timer)
+      //console.log('die going left')
     } else if (snakeDirection === -width && head <= width){
       gameOver()
-      console.log('die going up')
-    } else if (snakeDirection === +width && (head + width) > cellCount){
+      clearInterval(timer)
+      //console.log('die going up')
+    } else if (snakeDirection === +width && (head + width) >= cellCount){
       gameOver()
-      console.log('die going down')
+      clearInterval(timer)
+      //console.log('die going down')
     } else if (cells[head + snakeDirection].classList.contains('snake')){
       gameOver()
-      console.log('5')
-    } else {
-      cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
-      currentSnake.pop()
-      //we need to manipulate the DOM decrementing the tail and removing that class
-      //cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
+      clearInterval(timer)
+      //console.log('5')
       
-      //Through the DOM we need to add one index to the head
-      //cells[head].classList.add('snake')
+    } else {
+      //manipulate the DOM decrementing the tail and removing that class
+      cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
       //Removing from the end of the array
-      //currentSnake.pop()
+      currentSnake.pop()
       //Adding to the start of the array, which is the head
       currentSnake.unshift(head + snakeDirection)
-      cells[head].classList.add('snake')
-    }
+      //add the class list of snake
+      cells[currentSnake[0]].classList.add('snake')
+      //currentSnake.forEach(s => cells[s].classList.add('snake'))
+    } 
     //if the snake eats the food
-    if (cells[head].classList.contains('food')){
-      
+    if (cells[head + snakeDirection]?.classList.contains('food')){
+    //if (cells[head] === randomCellFood){
       //remove the class of food
       removeFood()
-      //grow snake by adding the class of snake 
-      // grow the tail and the array need to get bigger too
+      // grow the tail 
       growTail()
       //addFood
       addFood()
       //increase the score variable and add 5 to the scoreDisplay
       addScore()
       //grow speed
-      speed()
+      speed()     
     }
   }
 
@@ -160,18 +164,17 @@ function init() {
   function growTail(){
     //grow tail when the food is eaten
     //grow snake by adding the class of snake 
-    // grow the tail and the array need to get bigger too
-    cells[currentSnake[2]].classList.add('snake')
-    currentSnake.push()
+    // grow the tail and the array needs to get bigger too
+    currentSnake.unshift(currentSnake[0] + snakeDirection)
+    cells[currentSnake[0]].classList.add('snake')
   }
   
   function speed(){
     //Select the speed of the snake using setInterval().
-    //timer = setInterval(moveSnake, intervalTime)
+    clearInterval(timer)
+    intervalTime *= 0.5
+    timer = setInterval(moveSnake, intervalTime)
     //console.log('interval')
-    if (currentSnake === 'food') {
-      snakeSpeed * 0.6
-    }
   }
 
   function reset(){
@@ -205,12 +208,18 @@ function init() {
       addSnake()
     }, intervalTime)
   }
+
+  function playAudio(){
+    // Set the src attribute on an audio element
+    audio.src = 'assets/rattle_snake.wav'
+    // Play Audio
+    audio.play()
+  }
   
   // ! Events
   startBtn.addEventListener('click', startGame)
   document.addEventListener('keydown', direction)
-
-
+  
   // ! Page Load
   createGrid()
 
