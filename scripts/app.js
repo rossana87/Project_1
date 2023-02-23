@@ -16,13 +16,10 @@ function init() {
   let currentScore = 0
   let snakeSpeed 
   let randomCellFood = 0  
-  let snakeDirection = 'right'
+  let snakeDirection = 1
   let timer
   const intervalTime = 1000
   
-  //let endGame = false
-  
-
   // ! Generate Grid
   function createGrid(){
     for (let i = 0; i < cellCount; i++){
@@ -41,16 +38,14 @@ function init() {
 
   // ! Executions
   function startGame(){
-    moveSnake()
-    timer = setInterval(moveSnake, intervalTime)
     // Reset variables back to their default values
     reset()
-    currentSnake = [6, 5, 4]
     
+    currentSnake = [6, 5, 4]
     addSnake()
+    moveSnakeTimer()
     addFood()
-  
-    addScore
+    
   }
 
   function addSnake(){ 
@@ -83,79 +78,66 @@ function init() {
   }
 
   function direction(e){
+    
     const right = 39
     const left = 37
     const up = 38
     const down = 40
     
-    if (e.keyCode === right && snakeDirection !== 'left') {
-      snakeDirection = 'right'
+    if (e.keyCode === right && snakeDirection !== -1) {
+      snakeDirection = +1
       console.log('right')
       
-    } else if (e.keyCode === left && snakeDirection !== 'right'){
-      snakeDirection = 'left' 
+    } else if (e.keyCode === left && snakeDirection !== +1){
+      snakeDirection = -1
       console.log('left')
       
-    } else if (e.keyCode === up && snakeDirection !== 'down'){
-      snakeDirection = 'up'
+    } else if (e.keyCode === up && snakeDirection !== +width){
+      snakeDirection = -width
       console.log('up')
-    } else if (e.keyCode === down && snakeDirection !== 'up'){
-      snakeDirection = 'down'
-      console.log('down')
-      
+
+    } else if (e.keyCode === down && snakeDirection !== -width){
+      snakeDirection = +width
+      console.log('down')      
     } 
-    moveSnake()
   }
 
   function moveSnake(){
     
     const head = currentSnake[0]
-    if (snakeDirection === 'right' && head % width !== width - 1){
-      
-      //we need to manipulate the DOM decrementing the tail and removing that class
-      cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
-      //Through the DOM we need to add one index to the head
-      cells[head + 1].classList.add('snake')
-      //Removing the from the end of the array
-      currentSnake.pop()
-      //adding to the start of the array, which is the head
-      currentSnake.unshift(head + 1)
-      
-    } else if (snakeDirection === 'left' && head % width !== 0){
-      
-      cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
-      cells[head - 1].classList.add('snake')
-      //cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
-      currentSnake.pop() 
-      //console.log('test ->', currentSnake.pop())
-      currentSnake.unshift(head - 1)
-      
-    } else if (snakeDirection === 'up' && head >= width){
-      
-      cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
-      cells[head - width].classList.add('snake')
-      currentSnake.pop()
-      currentSnake.unshift(head - width)
-      
-    } else if (snakeDirection === 'down' && head + width < cellCount){
-      
-      cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
-      cells[head + width].classList.add('snake')
-      currentSnake.pop()
-      currentSnake.unshift(head + width)
-      
+    
+    if (snakeDirection === 1 && head % width === width - 1){
+      gameOver()
+      console.log('die going right')   
+    } else if (snakeDirection === -1 && head % width === 0){
+      gameOver()
+      console.log('die going left')
+    } else if (snakeDirection === -width && head <= width){
+      gameOver()
+      console.log('die going up')
+    } else if (snakeDirection === +width && (head + width) > cellCount){
+      gameOver()
+      console.log('die going down')
+    } else if (cells[head + snakeDirection].classList.contains('snake')){
+      gameOver()
+      console.log('5')
     } else {
-      if (cells[head].classList.contains('snake')) {
-        //console.log('Game Over')
-        reset()
-        alert('Game Over')
-        //killGame.innerText = 'GAME OVER!'
-      } 
-      //startGame()
+      cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
+      currentSnake.pop()
+      //we need to manipulate the DOM decrementing the tail and removing that class
+      //cells[currentSnake[currentSnake.length - 1]].classList.remove('snake')
+      
+      //Through the DOM we need to add one index to the head
+      //cells[head].classList.add('snake')
+      //Removing from the end of the array
+      //currentSnake.pop()
+      //Adding to the start of the array, which is the head
+      currentSnake.unshift(head + snakeDirection)
+      cells[head].classList.add('snake')
     }
     //if the snake eats the food
-    if (head === randomCellFood){
-      addScore()
+    if (cells[head].classList.contains('food')){
+      
       //remove the class of food
       removeFood()
       //grow snake by adding the class of snake 
@@ -163,7 +145,7 @@ function init() {
       growTail()
       //addFood
       addFood()
-      //increase the score variable and add 10 to the scoreDisplay
+      //increase the score variable and add 5 to the scoreDisplay
       addScore()
       //grow speed
       speed()
@@ -180,12 +162,12 @@ function init() {
     //grow snake by adding the class of snake 
     // grow the tail and the array need to get bigger too
     cells[currentSnake[2]].classList.add('snake')
-    currentSnake.push(2)
+    currentSnake.push()
   }
   
   function speed(){
     //Select the speed of the snake using setInterval().
-    timer = setInterval(moveSnake, intervalTime)
+    //timer = setInterval(moveSnake, intervalTime)
     //console.log('interval')
     if (currentSnake === 'food') {
       snakeSpeed * 0.6
@@ -208,15 +190,22 @@ function init() {
     scoreDisplay.innerText = 0
     //reset Game Over on the screen
     killGame.innerText = ''
-    console.log('hello')
+    //console.log('hello')
   }
 
-  // function gameOver(){
-  //   killGame.innerText = 'GAME OVER!' 
-  // }
+  function gameOver(){
+    killGame.innerText = 'GAME OVER!'
+    clearInterval(timer) 
+  }
 
-  //timer = setInterval(moveSnake, intervalTime)
-
+  function moveSnakeTimer(){
+    timer = setInterval(() => {
+      removeSnake()
+      moveSnake()
+      addSnake()
+    }, intervalTime)
+  }
+  
   // ! Events
   startBtn.addEventListener('click', startGame)
   document.addEventListener('keydown', direction)
@@ -224,10 +213,6 @@ function init() {
 
   // ! Page Load
   createGrid()
-
-
-
-
 
 }
 
