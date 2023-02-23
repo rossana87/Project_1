@@ -14,11 +14,12 @@ function init() {
   const cells = []
   let currentSnake = [6, 5, 4]
   let currentScore = 0
-  const snakeSpeed = 0.9
+  let snakeSpeed 
   let randomCellFood = 0  
   let snakeDirection = 'right'
   let timer
-  let interval = 1000
+  const intervalTime = 1000
+  
   //let endGame = false
   
 
@@ -40,13 +41,15 @@ function init() {
 
   // ! Executions
   function startGame(){
+    moveSnake()
+    timer = setInterval(moveSnake, intervalTime)
     // Reset variables back to their default values
     reset()
     currentSnake = [6, 5, 4]
     
     addSnake()
     addFood()
-    moveSnake()
+  
     addScore
   }
 
@@ -145,10 +148,10 @@ function init() {
       if (cells[head].classList.contains('snake')) {
         //console.log('Game Over')
         reset()
-        killGame.innerText = 'GAME OVER!' 
-        
+        alert('Game Over')
+        //killGame.innerText = 'GAME OVER!'
       } 
-      startGame()
+      //startGame()
     }
     //if the snake eats the food
     if (head === randomCellFood){
@@ -182,10 +185,11 @@ function init() {
   
   function speed(){
     //Select the speed of the snake using setInterval().
-    timer = setInterval(moveSnake, interval)
-    console.log('interval')
-    interval = interval * snakeSpeed
-    
+    timer = setInterval(moveSnake, intervalTime)
+    //console.log('interval')
+    if (currentSnake === 'food') {
+      snakeSpeed * 0.6
+    }
   }
 
   function reset(){
@@ -195,27 +199,27 @@ function init() {
     // Remove the snake
     removeSnake()
     //reset array current snake
-    //currentSnake = [6, 5, 4]
+    currentSnake = [6, 5, 4]
     //remove food
     removeFood()
     //reset score variable
     currentScore = 0
     //reset the DispayScore on the screen
     scoreDisplay.innerText = 0
+    //reset Game Over on the screen
+    killGame.innerText = ''
+    console.log('hello')
   }
 
   // function gameOver(){
-  //   endGame = true
+  //   killGame.innerText = 'GAME OVER!' 
   // }
+
+  //timer = setInterval(moveSnake, intervalTime)
 
   // ! Events
   startBtn.addEventListener('click', startGame)
   document.addEventListener('keydown', direction)
-
-
-
-
-
 
 
   // ! Page Load
