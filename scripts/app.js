@@ -176,7 +176,7 @@ function init() {
     timer = setInterval(moveSnake, intervalTime)
     //console.log('interval')
   }
-
+  
   function reset(){
     // Cleanup in case a previous interval is running
     // Clear timer interval

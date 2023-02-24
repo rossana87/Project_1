@@ -19,8 +19,7 @@ body {
 body section {
   display: flex;
   justify-content: center;
-  margin-bottom: 40px;
-  
+  margin-bottom: 40px;  
 }
 
 h1{
@@ -35,8 +34,7 @@ header {
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-  width: 500px;
-  
+  width: 500px;  
 }
 
 header div {
@@ -49,8 +47,9 @@ header div {
   padding: 10px 10px;
   margin-bottom: 15px;
   border-radius: 8px;
-  border: 3px solid black;
-  color: #e6bc94;
+  border: 3px solid #541d00;
+  color: white;
+  background-color: #e6bc94;
   
 }
 
@@ -74,7 +73,7 @@ header div {
   justify-content: center;
   height: 500px;
   width: 500px;
-  border: 5px solid black;
+  border: 5px solid #541d00;
 }
 
 .grid div {
@@ -90,11 +89,13 @@ header div {
 }
 
 .grid .snake {
-  background-color: black;
+  background-color: #541d00;
 }
 
 .killGame {
   position: absolute;
   font-size: 40px;
   text-align: center;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 4px #541d00;
 }
