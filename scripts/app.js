@@ -38,11 +38,10 @@ function init() {
 
   // ! Executions
   function startGame(){
-    playAudio()
-    clearInterval(timer)
+    
     // Reset variables back to their default values
     reset()
-    
+    playAudio()
     currentSnake = [6, 5, 4]
     addSnake()
     moveSnakeTimer()
@@ -110,23 +109,23 @@ function init() {
     
     if (snakeDirection === 1 && head % width === width - 1){
       gameOver()
-      clearInterval(timer)
+      //clearInterval(timer)
       //console.log('die going right')   
     } else if (snakeDirection === -1 && head % width === 0){
       gameOver()
-      clearInterval(timer)
+      //clearInterval(timer)
       //console.log('die going left')
     } else if (snakeDirection === -width && head <= width){
       gameOver()
-      clearInterval(timer)
+      //clearInterval(timer)
       //console.log('die going up')
     } else if (snakeDirection === +width && (head + width) >= cellCount){
       gameOver()
-      clearInterval(timer)
+      //clearInterval(timer)
       //console.log('die going down')
     } else if (cells[head + snakeDirection].classList.contains('snake')){
       gameOver()
-      clearInterval(timer)
+      //clearInterval(timer)
       //console.log('5')
       
     } else {
@@ -172,11 +171,11 @@ function init() {
   function speed(){
     //Select the speed of the snake using setInterval().
     clearInterval(timer)
-    intervalTime *= 0.5
+    intervalTime *= 0.7
     timer = setInterval(moveSnake, intervalTime)
     //console.log('interval')
   }
-  
+
   function reset(){
     // Cleanup in case a previous interval is running
     // Clear timer interval
@@ -189,16 +188,18 @@ function init() {
     removeFood()
     //reset score variable
     currentScore = 0
-    //reset the DispayScore on the screen
+    //reset the DisplayScore on the screen
     scoreDisplay.innerText = 0
     //reset Game Over on the screen
     killGame.innerText = ''
-    //console.log('hello')
+    //remove the the grid shake
+    grid.classList.remove('shake')
   }
 
   function gameOver(){
+    clearInterval(timer)
+    grid.classList.add('shake')
     killGame.innerText = 'GAME OVER!'
-    clearInterval(timer) 
   }
 
   function moveSnakeTimer(){
