@@ -276,7 +276,7 @@ function reset() {
 ### Final Project
 
 ![](https://res.cloudinary.com/dtu5wu4i9/image/upload/v1683816570/Project%201/project-1-re-google-docs-1_ptxmal.png)
-![](https://res.cloudinary.com/dtu5wu4i9/image/upload/v1683816578/Project%201/project-1-re-google-docs-2_uqgh9m.png)
+
 
 
 
