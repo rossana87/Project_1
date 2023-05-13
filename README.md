@@ -50,7 +50,7 @@ While I was coding, some variables and functions had changed and created a diffe
 
 #### Creating the Grid
 
-I created the grid in a JavaScript function. The function created an array of `divs` within a flex-container. The divs could have classes attached, which were used to change the display. During development the index of each `div` could be displayed which resulted in a grid that was easy to change if required, and allowed me to keep track of attached classes easily.
+Firstly, I created the grid in JavaScript. The function created an array of `divs` within a flex-container. The divs could have classes attached, which were used to change the display. During development the index of each `div` could be displayed which resulted in a grid that was easy to change if required, and allowed me to keep track of attached classes easily.
 
 ```js
 // ! Generate Grid
@@ -93,7 +93,7 @@ function addSnake() {
 
 #### Add food and remove food
 
-A function was created to handle the creation and placement of food on the grid. The variable `randomCellFood` was created to handle the task of randomly generating a number, which was equal to a cell on the board, and using the `Math.random()` function. A class would then be added to a random cell and thus place food on the grid. Thanks to this method, food will be generated randomly on the grid while the user is playing. 
+A function was created to handle the creation and placement of food on the grid. Thanks to this function, food will be generated randomly on the grid while the user is playing. 
 
 ```js
 unction addFood() {
@@ -107,7 +107,7 @@ unction addFood() {
 
 #### Direction of the snake
 
-This function changes the snake’s direction based on the arrow keys that are pressed. In order to move the snake, I had to create a function with the snake directions for right, left, down and up. I created a variable called `let direction = 1`, which represents the default direction that is right. Then, I created an if statement that  controls the different directions and the snake direction was captured using an event listener.
+This function changes the snake’s direction based on the arrow keys that are pressed on the keyboard. I created a global variable called `let direction = 1`, which represents the default direction that is right. Then, I created an if statement that controls the different directions and the snake direction was captured using an event listener.
 To prevent the snake going immediately to the opposite direction, in the if statement I included that if the snake is going right cannot go left and so on.
 
 ```js
@@ -139,7 +139,7 @@ function direction(e) {
 
 #### Moving the snake
 
-The crucial function in this game has been the moving function to let the snake move around the grid. This function includes the collision with the wall as well. An if statement was used for every direction for the movement and if the snake hits the wall of the board the game is over.
+The crucial function in this game has been the moving function to let the snake move around the grid. This function includes the collision with the wall as well. I have used an if statement for the movements and if the snake hits the wall the game is over.
 
 ```js
 function moveSnake() {
@@ -162,7 +162,7 @@ function moveSnake() {
       gameOver()
 ```
 
-If the snake doesn’t hit the wall, I can move to the second part of the statement, which is the `else`. I manipulated the DOM, decrementing the tail and removing the class of ‘snake’. Then, I used the method `pop()` for removing the tail from the end of the array; used the method `unshift()`, which adds the cell to the beginning of the array (the head). Lastly, add the class of ‘snake’ to make it visible on the front-end.
+However, if the snake doesn’t hit the wall, I can move to the second part of the statement, which is the `else`. I manipulated the DOM, decrementing the tail and removing the class of ‘snake’. Then, I used the method `pop()` for removing the tail from the end of the array and used the method `unshift()`, which adds the cell to the beginning of the array (the head). Then, I added the class of ‘snake’ to make it visible on screen.
 
 ```js
 } else {
@@ -222,7 +222,7 @@ function speed() {
 
 #### Reset
 
-Finally, the function `reset()`  resets the entire game before clicking on the button start. A computer is not like a human brain, on the contrary I have to code everything that needs to happen. Therefore, I had to clear all the previous intervals, such as the speed after eating the food. Remove the snake from the screen, so the user is able to start from a clean board. Reset the snake to the start position once the user clicks on the button start and at the same time remove the food that is generated randomly. The score needs to go back to 0 and remove game-over  from the screen. 
+Finally, the function `reset()`, which resets the entire game before clicking on the button start. A computer is not like a human brain, on the contrary I have to code everything that needs to happen. Therefore, I had to clear all the previous intervals, such as the speed after eating the food. Remove the snake from the screen, so the user is able to start from a clean board. Reset the snake to the start position once the user clicks on the button start and at the same time remove the food that is generated randomly. The score needs to go back to 0 and remove game-over  from the screen. 
 
 ```js
 function reset() {
@@ -248,12 +248,12 @@ function reset() {
 
 ### Challenges
 
-* I found the process of getting started when faced with only a brief, rather daunting initially. Although we had been taught the skills and tools that were needed to build the game, having to start from a blank page was definitely a challenge. Taking the time to think and plan on paper, enabled me to face and overcome this challenge. Looking back over my code I can see that some of it could be refactored (i.e. the snake movement), to make it DRY, however, due to the time constraints and given that it was my first project, I was happy with the outcome.
+* Since this was the first project, initially, I found the process rather daunting. Although I had been taught the skills and tools that were needed to build the game, having to start from a blank page was definitely a challenge. Taking the time to think and plan on paper enabled me to face and overcome this challenge. Looking back over my code I can see that some of it could be refactored (i.e. the snake movement), to make it DRY, however, due to the time constraints and given that it was my first project, I was happy with the outcome.
 * Without any doubt, I learned how to manipulate the DOM and it will stay vivid in my mind. When I added the snake, I could not see it on the screen. I checked the code multiple times and only after some time I realised that I wasn’t manipulating the DOM. 
 
 ### Wins
 
-* I am very proud of the design of the game.
+* I am quite proud of the design of the game.
 * Getting the game working.
 * Consolidated my knowledge of JavaScript, CSS and HTML. Some of the concepts are much clearer now.
 
@@ -270,7 +270,6 @@ function reset() {
 ### Future Improvements
 
 * Make the game responsive.
-* Ideally, I would have liked a leader-board so that a player would have been able to see what their ultimate high score had been and where they ranked in the all-time list. Due to the time constraints I was unable to implement this feature.
 * Create more obstacles on the board to make the game slightly harder.
 
 ### Final Project
