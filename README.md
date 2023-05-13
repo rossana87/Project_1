@@ -30,15 +30,15 @@ This was a solo project and the timeframe was 1 week.
 * HTML5
 * CSS3
 * JavaScript ES6+
-* VS Code
+* VSCode
 * Google Fonts
 * Git & GitHub
 
 ## Planning
 
 Before coding, I created a wireframe in Excalidraw to have an overview of the project and try to understand the pseudo code of the game.
-Before planning, I played a little bit of the game Snake online, in order to understand what elements in HTML were a must. What variables I had to declare and what functions I needed to execute.
-It was important to create the grid first. Afterwards, I wanted to show the score every time the snake was eating the food and I created the button Start for starting the game.
+Before planning, I played the game Snake online, in order to understand what elements I needed in HTML, what variables I had to declare and what functions I needed to execute.
+It was important to create the grid first. Then, I wanted to show the score every time the snake was eating the food and I created the button Start for starting the game.
 Regarding the variables, in my mind, I thought that the snake was going to be an empty array.
 
 ![](https://res.cloudinary.com/dtu5wu4i9/image/upload/v1683815245/Project%201/project-1-re-google-docs-0_bimhzo.png)
