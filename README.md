@@ -4,7 +4,7 @@
 
 This was the first JavaScript project of the Software Engineering Immersive course at General Assembly.
 
-Snake is a single-player game where the player earns points by guiding the snake to eat food randomly placed on the game board. Every time the snake eats the tail grows and the speed increases. The game is over if the snake hits the walls of the board, or itself.
+Snake is a single-player game where the player earns points by guiding the snake to eat food randomly placed on the game board. Every time the snake eats, the tail grows and the speed increases. The game is over if the snake hits the walls of the board, or itself.
 
 ## Brief
 
