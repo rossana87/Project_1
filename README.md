@@ -36,10 +36,10 @@ This was a solo project and the timeframe was 1 week.
 
 ## Planning
 
-Before coding, I created a wireframe in Excalidraw to have an overview of the project and try to understand the pseudo code of the game.
-Before planning, I played the game Snake online, in order to understand what elements I needed in HTML, what variables I had to declare and what functions I needed to execute.
-It was important to create the grid first. Then, I wanted to show the score every time the snake was eating the food and I created the button Start for starting the game.
-Regarding the variables, in my mind, I thought that the snake was going to be an empty array.
+Before coding I created a wireframe in Excalidraw to have an overview of the project and try to understand the pseudo code of the game.
+Before planning I played the game online in order to understand what elements I needed in HTML, what variables I had to declare and what functions I needed to execute.
+The first step was to create the grid, then I wanted to show the score every time the snake was eating the food. Next I created the Start button to begin the game.
+Regarding the variables, in my mind I thought that the snake was going to be an empty array.
 
 ![](https://res.cloudinary.com/dtu5wu4i9/image/upload/v1683815245/Project%201/project-1-re-google-docs-0_bimhzo.png)
 
@@ -50,7 +50,7 @@ While I was coding, some variables and functions had changed and created a diffe
 
 #### Creating the Grid
 
-Firstly, I created the grid in JavaScript. The function created an array of `divs` within a flex-container. The divs could have classes attached, which were used to change the display. During development the index of each `div` could be displayed which resulted in a grid that was easy to change if required, and allowed me to keep track of attached classes easily.
+Firstly, I created the grid in JavaScript. The function created an array of `divs` within a flex-container. The divs could have classes attached, which were used to change the display. 
 
 ```js
 // ! Generate Grid
@@ -71,8 +71,8 @@ Firstly, I created the grid in JavaScript. The function created an array of `div
 
 #### Function add snake and remove snake
 
-For adding the snake, I looped the currentSnake variable and used a `forEach` loop  and I added a new class. Through CSS, I was able to add the colour to the snake.
-The function `removeSnake` when applied removes the class “snake” from each cell in the currentSnake array. The latter contains the indexes of each cell that the snake currently occupies on the game board. The function iterates over the currentSnake array using a loop. For each element, the function targets the corresponding cell in the cell array, using the index value, and then removes the class “snake” from that cell using the `classList.remove()` method. While creating the game, the colours of the snake would disappear.
+For adding the snake, I looped the currentSnake variable and used a `forEach` loop  and added a new class. Through CSS, I was able to add the colour to the snake.
+The function `removeSnake` when applied removes the class “snake” from each cell in the currentSnake array. The latter contains the indexes of each cell that the snake currently occupies on the game board. The function iterates over the currentSnake array using a loop. For each element the function targets the corresponding cell in the cell array, using the index value and then removes the class “snake” from that cell using the `classList.remove()` method. While I was creating the game the colours of the snake would disappear.
 
 ```js
 function addSnake() {
@@ -107,7 +107,7 @@ unction addFood() {
 
 #### Direction of the snake
 
-This function changes the snake’s direction based on the arrow keys that are pressed on the keyboard. I created a global variable called `let direction = 1`, which represents the default direction that is right. Then, I created an if statement that controls the different directions and the snake direction was captured using an event listener.
+This function changes the snake’s direction based on the arrow keys that are pressed on the keyboard. I created a global variable called `let direction = 1`, which represents the default direction that is right. Then I created an if statement that controls the different directions and the snake direction was captured using an event listener.
 To prevent the snake going immediately to the opposite direction, in the if statement I included that if the snake is going right cannot go left and so on.
 
 ```js
@@ -162,7 +162,7 @@ function moveSnake() {
       gameOver()
 ```
 
-However, if the snake doesn’t hit the wall, I can move to the second part of the statement, which is the `else`. I manipulated the DOM, decrementing the tail and removing the class of ‘snake’. Then, I used the method `pop()` for removing the tail from the end of the array and used the method `unshift()`, which adds the cell to the beginning of the array (the head). Then, I added the class of ‘snake’ to make it visible on screen.
+However, if the snake doesn’t hit the wall I can move to the second part of the statement, which is the `else`. I manipulated the DOM, decrementing the tail and removing the class of ‘snake’. Then I used the method `pop()` for removing the tail from the end of the array and used the method `unshift()`, which adds the cell to the beginning of the array (the head). Then I added the class of ‘snake’ to make it visible on screen.
 
 ```js
 } else {
@@ -208,7 +208,7 @@ function moveSnakeTimer() {
 
 #### Speed
 
-The speed increased every time the snake was eating food. The `clearInterval` were required to stop the issue of the snakes’ speed increasing exponentially. The `intervalTime` was set to a certain speed every time the snake had food.
+The speed increased every time the snake was eating food. The `clearInterval` were required to stop the issue of the snakes’ speed increasing exponentially. The `intervalTime` was set to a certain speed every time the snake eats food.
 
 ```js
 function speed() {
@@ -222,7 +222,7 @@ function speed() {
 
 #### Reset
 
-Finally, the function `reset()`, which resets the entire game before clicking on the button start. A computer is not like a human brain, on the contrary I have to code everything that needs to happen. Therefore, I had to clear all the previous intervals, such as the speed after eating the food. Remove the snake from the screen, so the user is able to start from a clean board. Reset the snake to the start position once the user clicks on the button start and at the same time remove the food that is generated randomly. The score needs to go back to 0 and remove game-over  from the screen. 
+Finally, the function `reset()` which resets the entire game before clicking on the button start. A computer is not like a human brain, on the contrary I had to code everything that needs to happen. Therefore I had to clear all the previous intervals, such as the speed after eating the food. Remove the snake from the screen, so the user is able to start from a clean board. Reset the snake to the start position once the user clicks on the button start and at the same time remove the food that is generated randomly. The score needs to go back to 0 and remove game-over  from the screen. 
 
 ```js
 function reset() {
@@ -248,8 +248,8 @@ function reset() {
 
 ### Challenges
 
-* Since this was the first project, initially, I found the process rather daunting. Although I had been taught the skills and tools that were needed to build the game, having to start from a blank page was definitely a challenge. Taking the time to think and plan on paper enabled me to face and overcome this challenge. Looking back over my code I can see that some of it could be refactored (i.e. the snake movement), to make it DRY, however, due to the time constraints and given that it was my first project, I was happy with the outcome.
-* Without any doubt, I learned how to manipulate the DOM and it will stay vivid in my mind. When I added the snake, I could not see it on the screen. I checked the code multiple times and only after some time I realised that I wasn’t manipulating the DOM. 
+* Since this was the first project, initially I found the process rather daunting. Although I had been taught the skills and tools that were needed to build the game, having to start from a blank page was definitely a challenge. Taking the time to think and plan on paper enabled me to face and overcome this challenge. Looking back over my code I can see that some of it could be refactored (i.e. the snake movement), to make it DRY, however, due to the time constraints and given that it was my first project, I was happy with the outcome.
+* Without any doubt I learned how to manipulate the DOM and it will stay vivid in my mind. When I added the snake, I could not see it on the screen. I checked the code multiple times and only after some time I realised that I wasn’t manipulating the DOM. 
 
 ### Wins
 
