@@ -19,7 +19,7 @@ Snake is a single-player game where the player earns points by guiding the snake
 
 ## Deployment
 
-<a href="https://rossana87.github.io/Project_1/" target="_blank">Game - Snake</a>
+<a href="https://rossana87.github.io/Project_1/">Game - Snake</a>
 
 ## Timeframe
 
