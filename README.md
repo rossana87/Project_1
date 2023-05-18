@@ -265,7 +265,7 @@ function reset() {
 
 ### Bugs
 
-* If you play the game once, everything is absolutely fine. However, when you play it the second time the snake goes into the direction that went previously. There must be a bug in the movement function that needs to be revisited.
+* If you play the game once, everything is absolutely fine. However, when you play it the second time the snake goes into the direction that went previously. - Fixed 🚀
 
 ### Future Improvements
 
