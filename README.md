@@ -96,7 +96,7 @@ function addSnake() {
 A function was created to handle the creation and placement of food on the grid. Thanks to this function, food will be generated randomly on the grid while the user is playing. 
 
 ```js
-unction addFood() {
+function addFood() {
     //generate a random index with Math.floor(Math.random)
     randomCellFood = Math.floor(Math.random() * cells.length)
     //cells is an array. Doing the below, I can add the class 'food'
